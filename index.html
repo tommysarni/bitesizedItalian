@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bite-Sized Italian</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .field {
+      }
+      .field:first-child {
+        border-radius: 5px 5px 0 0;
+      }
+      .field:nth-child(3) {
+        border-radius: 0 0 5px 5px;
+      }
+
+      .input {
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./unsubscribe.html">Unsubscribe</a>
+    <h1>Bite-Sized Italian</h1>
+    <h1>Join the Newsletter and Learn</h1>
+    <form>
+      <div class="field">
+        <!-- <label for="name">Enter your name: </label> -->
+        <input type="text" name="name" id="name" value="Joey" required />
+      </div>
+      <div class="field">
+        <!-- <label for="email">Enter your email: </label> -->
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value="joeyschmoe@gmail.com"
+          maxlength="128"
+          required
+        />
+      </div>
+      <div class="field">
+        <!-- <label for="birthday">Start date:</label> -->
+
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          maxlength="10"
+          minlength="10"
+          min="1900-01-01"
+        />
+      </div>
+
+      <input id="submit" type="submit" value="Subscribe!" />
+    </form>
+    <h1 id="result"></h1>
+  </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const SERVER_URL = "https://email-list-server.onrender.com/subscribe";
+    const today = (document.getElementById("birthday").max = new Date()
+      .toISOString()
+      .split("T")[0]);
+    document.getElementById("submit").addEventListener("click", (e) => {
+      e.preventDefault();
+      const { name, email, birthday } = validateForm();
+      axios
+        .post(SERVER_URL, {
+          name,
+          email,
+          birthday,
+        })
+        .then(function (response) {
+          const { code, errors } = response.data || {};
+          // if code === 11000 then already subscribed
+          const text =
+            code || errors
+              ? "There was an error. Try again later."
+              : "Congrats! You have subscribed.";
+
+          setResult(text);
+        })
+        .catch(function (error) {
+          console.log(error);
+          setResult("There was an error. Try again later.");
+        });
+
+      document.querySelector("form").style.display = "none";
+    });
+
+    const formatBirthday = () => {
+      const birthday = document.getElementById("birthday")?.value || "";
+      const RE = /^(\d{4})[-](\d{2})[-](\d{2})$/;
+      if (!RE.test(birthday)) return "";
+      const [year, month, day] = birthday.split("-");
+      if (!year || !month || !day) return "";
+      return `${month}-${day}-${year}`;
+    };
+
+    const validateForm = () => {
+      const name = document.getElementById("name")?.value;
+      const email = document.getElementById("email")?.value;
+      const birthday = formatBirthday();
+
+      if (!name || !email || !birthday) {
+        throw new Error("Invalid Credentials Supplied");
+      }
+
+      return { name, email, birthday };
+    };
+
+    const setResult = (text) => {
+      const result = document.getElementById("result");
+      if (result) result.textContent = text;
+    };
+  </script>
+</html>

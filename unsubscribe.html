@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bite-Sized Italian</title>
+  </head>
+  <body>
+    <a href="./index.html">Home</a>
+    <h1>Unsubscribe</h1>
+    <form class="form-example">
+      <div class="form-example">
+        <label for="email">Enter your email: </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value="joeyschmoe@gmail.com"
+          maxlength="128"
+          required
+        />
+      </div>
+
+      <div class="form-example">
+        <input id="submit" type="submit" value="Unsubscribe" />
+      </div>
+    </form>
+    <h1 id="result"></h1>
+  </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const auto_email = new URLSearchParams(window.location.search).get("user");
+    if (auto_email) {
+      document.getElementById("email").value = auto_email;
+    }
+
+    document.getElementById("submit").addEventListener("click", (e) => {
+      e.preventDefault();
+      const { email } = validateForm();
+      axios
+        .post("https://email-list-server.onrender.com/unsubscribe", {
+          email,
+        })
+        .then(function (response) {
+          console.log(response);
+          const { code, errors } = response.data || {};
+          // if code === 11000 then already subscribed
+          const text =
+            code || errors
+              ? "There was an error. Try again later."
+              : "You have unsubscribed";
+
+          setResult(text);
+        })
+        .catch(function (error) {
+          console.log(error);
+          setResult("There was an error. Try again later.");
+        });
+
+      document.querySelector("form").style.display = "none";
+    });
+
+    const formatBirthday = () => {
+      const birthday = document.getElementById("birthday")?.value || "";
+      const [year, month, day] = birthday.split("-");
+      if (!year || !month || !day) return "";
+      return `${month}-${day}-${year}`;
+    };
+
+    const validateForm = () => {
+      const email = document.getElementById("email")?.value;
+
+      if (!email) {
+        throw new Error("Invalid Credentials Supplied");
+      }
+
+      return { email };
+    };
+
+    const setResult = (text) => {
+      document.getElementById("result").textContent = text;
+    };
+  </script>
+</html>
