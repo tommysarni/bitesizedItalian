@@ -1,0 +1,77 @@
+@font-face {
+    font-family: Alegraya;
+    src: url(./assets/fonts/Alegreya-Regular.ttf);
+ }
+
+ html {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+ }
+
+:root {
+    --light: #f7edd2;
+    --dark: #2a418f;
+    --red: #DB5A42;
+    --white: #eee;
+}
+
+* {
+    font-family: "Alegraya", serif;
+}
+
+body {
+    height: 100%;
+    /* background-color: var(--light); */
+    background: linear-gradient(to bottom, var(--dark), var(--dark) 10%, var(--light) 10%, var(--light) 90%, var(--dark) 90%);
+    margin: 0;
+    font-family: "Alegraya", serif;
+}
+
+header {
+    font-size: 100px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - (250px + 100px)); /* vh - (header + footer heights)  */
+}
+
+
+
+
+
+dl {
+    margin-left: 6px;
+}
+
+dt {
+    color: #217ac0;
+    font-family: Consolas, "Liberation Mono", Courier;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 16px;
+}
+
+
+
+
+@media only screen and (min-width:480px) {
+
+    /* td,
+    p {
+        font-size: larger;
+    }
+
+    h3 {
+        font-size: large;
+    }
+
+    a {
+        font-size: large !important;
+    } */
+}

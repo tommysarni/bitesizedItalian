@@ -3,126 +3,267 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bite-Sized Italian</title>
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      html {
+        background-color: var(--light);
       }
-      form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      main {
+        opacity: 0;
       }
-      .field {
-      }
-      .field:first-child {
-        border-radius: 5px 5px 0 0;
-      }
-      .field:nth-child(3) {
-        border-radius: 0 0 5px 5px;
+      .tipcontent {
+        margin: 0;
       }
 
-      .input {
+      .tabcontainer, .container {
+        padding: 15px 10px;
+        border: solid;
+        border-radius: 20px;
+        width: 535px;
+        background-color: var(--white);
+        max-width: 95vw;
+      }
+
+      .tab {
+        position: relative;
+        top: -17px;
+        left: -12px;
+        display: flex;
+        width: max-content;
+      }
+
+      .tablinks:nth-child(1) {
+        border-left: solid black;
+        border-radius: 20px 0 0 0px;
+      }
+
+      .tablinks {
+        cursor: pointer;
+        border-left: none;
+        padding: 10px 50px;
+        margin: 0;
+        color: var(--light);
+        background-color: var(--dark);
+      }
+
+      .tablinks:not(.active):hover {
+        box-shadow: 0 0 15px 4px yellow, 0 0 15px 4px yellow;
+      }
+
+      .tab button.active {
+        cursor: default;
+        background-color: yellow;
+        color: black;
+      }
+
+      #Past,
+      #Future {
+        display: none;
+      }
+      .highlighted {
+        background-color: yellow;
+
+        text-decoration: underline;
+        border-radius: 10px;
       }
     </style>
   </head>
   <body>
-    <a href="./unsubscribe.html">Unsubscribe</a>
-    <h1>Bite-Sized Italian</h1>
-    <h1>Join the Newsletter and Learn</h1>
-    <form>
-      <div class="field">
-        <!-- <label for="name">Enter your name: </label> -->
-        <input type="text" name="name" id="name" value="Joey" required />
-      </div>
-      <div class="field">
-        <!-- <label for="email">Enter your email: </label> -->
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value="joeyschmoe@gmail.com"
-          maxlength="128"
-          required
-        />
-      </div>
-      <div class="field">
-        <!-- <label for="birthday">Start date:</label> -->
+    <script type="module" src="./scripts/index.js"></script>
+    <header-component></header-component>
+    <boiler-plate
+      title="Bite Size Italian"
+      css="./styles.css"
+      js=""
+      dependencies="./scripts/home.js"
+    >
+      <main slot="main">
+        <div>
+          <h1>Benvenuti!</h1>
+          <h1>Welcome!</h1>
 
-        <input
-          type="date"
-          id="birthday"
-          name="birthday"
-          maxlength="10"
-          minlength="10"
-          min="1900-01-01"
-        />
-      </div>
+          <h3>Learn Italian in Pieces</h3>
+          <div class="tabcontainer">
+            <div class="tab">
+              <table>
+                <tr>
+                  <button class="tablinks" onclick="openTense(event, 'Past')">
+                    Past
+                  </button>
+                  <button
+                    class="tablinks active"
+                    onclick="openTense(event, 'Present')"
+                  >
+                    Present
+                  </button>
+                  <button class="tablinks" onclick="openTense(event, 'Future')">
+                    Future
+                  </button>
+                </tr>
+              </table>
+            </div>
+            <div id="Past" class="tabcontent">
+              <p>
+                Harry didn't eat anything because he was nervous about his first
+                game.
+              </p>
+              <div>
+                Harry non
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Past: Passato Prossimo","pov":"Third Person Singular","infinitive":"mangiare","infinitive_meaning":"to eat","subject":"Harry","conjugation":"ha mangiato","meaning":"Harry ate"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">ha mangiato</span>
+                </tool-tip>
+                niente perché
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Past: Imperfetto","pov":"Third Person Singular","infinitive":"essere","infinitive_meaning":"to be","subject":"(Harry)","conjugation":"era","meaning":"(Harry) was"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">era</span>
+                </tool-tip>
+                nervoso per la sua prima partita.
+              </div>
+              <div>
+                Harry non
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Past: Passato Remoto","pov":"Third Person Singular","infinitive":"mangiare","infinitive_meaning":"to eat","subject":"Harry","conjugation":"mangiò","meaning":"Harry ate"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">mangiò</span>
+                </tool-tip>
+                niente perché
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Past: Imperfetto","pov":"Third Person Singular","infinitive":"essere","infinitive_meaning":"to be","subject":"(Harry)","conjugation":"era","meaning":"(Harry) was"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">era</span>
+                </tool-tip>
+                nervoso per la sua prima partita
+              </div>
+            </div>
+            <div id="Present" class="tabcontent">
+              <p>
+                Hermione studies in the library while her cat sleeps at her
+                feet.
+              </p>
+              <div>
+                Hermione
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Present","pov":"Third Person Singular","infinitive":"studiare","infinitive_meaning":"to study","subject":"Hermione","conjugation":"studia","meaning":"Hermione studies"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">studia</span>
+                </tool-tip>
+                in biblioteca mentre il suo gatto
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Present Tense","pov":"Third Person Singular","infinitive":"dormire","infinitive_meaning":"to sleep","subject":"Hermione","conjugation":"dorme","meaning":"Hermione sleeps"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">dorme</span>
+                </tool-tip>
+                ai suoi piedi.
+              </div>
+            </div>
+            <div id="Future" class="tabcontent">
+              <p>
+                Ron will take a train to Diagon Alley tomorrow and buy a new
+                wand.
+              </p>
+              <div>
+                Domani Ron
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Future","pov":"Third Person Singular","infinitive":"prendere","infinitive_meaning":"to take","subject":"Ron","conjugation":"prenderà","meaning":"Ron will take"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">prenderà</span>
+                </tool-tip>
+                un treno per Diagon Alley e
+                <tool-tip>
+                  <translation-table
+                    data-table='{"title":"Future","pov":"Third Person Singular","infinitive":"comprare","infinitive_meaning":"to buy","subject":"(Ron)","conjugation":"comprerà","meaning":"(Ron) will buy"}'
+                    slot="tipcontent"
+                  >
+                  </translation-table>
+                  <span slot="tiproot">comprerà</span>
+                </tool-tip>
+                una nuova bacchetta.
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="content">
+              <p class="english">I speak Italian!</p>
+              Io
+              <tool-tip>
+                <div slot="tipcontent">
+                  <fieldset style="margin: 10px" data-answer="parlo">
+                    <legend>Select an answer:</legend>
+                    <div>
+                      <input
+                        type="radio"
+                        id="parli"
+                        name="choice"
+                        value="parli"
+                        checked
+                      />
+                      <label for="parli">parli</label>
+                    </div>
 
-      <input id="submit" type="submit" value="Subscribe!" />
-    </form>
-    <h1 id="result"></h1>
+                    <div>
+                      <input
+                        type="radio"
+                        id="parlo"
+                        name="choice"
+                        value="parlo"
+                      />
+                      <label for="parlo">parlo</label>
+                    </div>
+
+                    <div>
+                      <input
+                        type="radio"
+                        id="parla"
+                        name="choice"
+                        value="parla"
+                      />
+                      <label for="parla">parla</label>
+                    </div>
+
+                    <button class="questionbtn" type="submit">Submit</button>
+                  </fieldset>
+                </div>
+                <span slot="tiproot">parlare</span>
+              </tool-tip>
+              Italiano!
+              <p for="sample">
+                Io (parlare)
+                <input
+                  type="text"
+                  name="sample"
+                  id="sample"
+                  style="text-align: center"
+                />
+                Italiano!
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </boiler-plate>
+    <footer-component></footer-component>
   </body>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script>
-    const SERVER_URL = "https://email-list-server.onrender.com/subscribe";
-    const today = (document.getElementById("birthday").max = new Date()
-      .toISOString()
-      .split("T")[0]);
-    document.getElementById("submit").addEventListener("click", (e) => {
-      e.preventDefault();
-      const { name, email, birthday } = validateForm();
-      axios
-        .post(SERVER_URL, {
-          name,
-          email,
-          birthday,
-        })
-        .then(function (response) {
-          const { code, errors } = response.data || {};
-          // if code === 11000 then already subscribed
-          const text =
-            code || errors
-              ? "There was an error. Try again later."
-              : "Congrats! You have subscribed.";
-
-          setResult(text);
-        })
-        .catch(function (error) {
-          console.log(error);
-          setResult("There was an error. Try again later.");
-        });
-
-      document.querySelector("form").style.display = "none";
-    });
-
-    const formatBirthday = () => {
-      const birthday = document.getElementById("birthday")?.value || "";
-      const RE = /^(\d{4})[-](\d{2})[-](\d{2})$/;
-      if (!RE.test(birthday)) return "";
-      const [year, month, day] = birthday.split("-");
-      if (!year || !month || !day) return "";
-      return `${month}-${day}-${year}`;
-    };
-
-    const validateForm = () => {
-      const name = document.getElementById("name")?.value;
-      const email = document.getElementById("email")?.value;
-      const birthday = formatBirthday();
-
-      if (!name || !email || !birthday) {
-        throw new Error("Invalid Credentials Supplied");
-      }
-
-      return { name, email, birthday };
-    };
-
-    const setResult = (text) => {
-      const result = document.getElementById("result");
-      if (result) result.textContent = text;
-    };
-  </script>
 </html>
